@@ -1,0 +1,34 @@
+.panel-workspace-indicator {
+  padding: 5px 11px;
+}
+
+.panel-workspace-indicator-box {
+  padding: 2px 0;
+}
+
+.panel-workspace-indicator-box .workspace {
+  width: 40px;
+}
+
+.panel-workspace-indicator,
+.panel-workspace-indicator-box .workspace {
+}
+
+.panel-workspace-indicator-box .workspace {
+  border-left-width: 0;
+}
+
+.panel-workspace-indicator-box .workspace:first-child {
+  border-left-width: 1px;
+}
+
+.active {
+	color: #000;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+}
+
+.inactive{
+	color: #fff;
+	background-color: transparent;
+}
