@@ -60,7 +60,7 @@ return {
 	-- 		},
 	-- 	},
 	-- },
-	color_scheme = "tokyonight",
+	color_scheme = "Gruvbox Dark",
 	force_reverse_video_cursor = true,
 
 	initial_rows = 28,
