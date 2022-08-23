@@ -8,7 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="aether"
+# ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -41,7 +41,7 @@ ZSH_THEME="aether"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -60,19 +60,28 @@ ENABLE_CORRECTION="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/omz-custom/
+# ZSH_CUSTOM=$HOME/omz-custom/
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git  zsh-syntax-highlighting zsh-autosuggestions bgnotify z zsh-completions zsh-vi-mode fzf docker docker-compose conda-zsh-completion)
+plugins=(
+    git 
+    zsh-autosuggestions 
+    bgnotify 
+    z 
+    zsh-completions 
+    zsh-vi-mode 
+    docker 
+    docker-compose 
+    conda-zsh-completion 
+    zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
-export FZF_BASE='~/.fzf'
-source ~/.fzf.zsh
-
+#
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -99,9 +108,13 @@ autoload -U compinit && compinit
 #
 # Aliases
 #alias ls="colorls --sd -A"
-alias ls="lsd --color=auto"
-alias la="lsd -la --color=auto"
-alias ll="lsd -l --color=auto"
+if command -v lsd &> /dev/null
+then
+    alias ls="lsd --color=auto"
+    alias la="lsd -la --color=auto"
+    alias ll="lsd -l --color=auto"
+fi
+
 alias rm="rm -I"
 alias pls="sudo"
 alias c='xclip -sel clip'
@@ -116,8 +129,6 @@ alias pl='pulsemixer -l'
 alias sfz='source ~/.fzf.zsh'
 
 alias sk='kitty +kitten ssh'
-alias tmux="env TERM=screen-256color tmux"
-
 # Tmux
 alias ta='tmux attach'
 alias ts='tmux-sessionizer'
@@ -127,35 +138,14 @@ path+=('/home/rifqoi/.local/bin')
 path+=('/home/rifqoi/.cargo/bin')
 path+=('/home/rifqoi/.config/lua-language-server/bin/')
 path+=('/home/rifqoi/go/bin/')
-path+=('/home/rifqoi/.rbenv/bin')
-export PATH
-# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g "" 2>/dev/null'
-# export FZF_ALT_C_COMMAND='find .'
-# export FZF_CTRL_T_COMMAND='ag --hidden --ignore .git --ignore-dir .local  -f -g "" 2>/dev/null'
+path+=($HOME'/.spicetify')
+
 export XDG_CONFIG_HOME=$HOME/.config
-ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export QT_QPA_PLATFORMTHEME='gnome'
 export PRETTIERD_DEFAULT_CONFIG=~/.config/nvim/.prettierrc.json
-eval "$(rbenv init -)"
-eval $(thefuck --alias)
-
-
-
-
-#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
 # COmpletions to hidden files
 zstyle ':completion:*' file-patterns '%p(D):globbed-files *(D-/):directories' '*(D):all-files'
-
-#_comp_options+=(globdots) #include hidden files
-
-# Wal Install
-#(cat ~/.cache/wal/sequences &)
-
-# Source
-
-export PATH="$PATH:$HOME/.spicetify"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -173,3 +163,13 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 alias luamake=/home/rifqoi/.config/lua-language-server/3rd/luamake/luamake
+eval "$(starship init zsh)"
+
+bindkey -r "^R"
+bindkey "^R" fzf-history-widget
+
+function my_init() {
+    bindkey -s \^f "tmux-sessionizer\n"
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+}
+zvm_after_init_commands+=(my_init)
