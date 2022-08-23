@@ -2,6 +2,9 @@
 
 microphone_volume=$(pactl list sources short | grep "alsa_input.pci-" | awk '{print $1}' | xargs -I{} pulsemixer --id {} --get-volume | awk {'print $1'})
 
+pactl list sources short | grep "alsa_input.pci-" | awk '{print $1}' | xargs -I{} pactl set-source-volume {} 50%
+sleep 1
+
 while true 
 do
 	sleep 0.1 &&
