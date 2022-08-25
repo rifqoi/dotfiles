@@ -163,7 +163,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 alias luamake=/home/rifqoi/.config/lua-language-server/3rd/luamake/luamake
-eval "$(starship init zsh)"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 bindkey -r "^R"
 bindkey "^R" fzf-history-widget
@@ -173,3 +173,4 @@ function my_init() {
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 }
 zvm_after_init_commands+=(my_init)
+eval "$(starship init zsh)"
