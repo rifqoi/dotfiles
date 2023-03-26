@@ -119,7 +119,7 @@ alias rm="rm -I"
 alias pls="sudo"
 alias c='xclip -sel clip'
 alias sc='find ~/scripts/utility -iname "*.sh" | fzf | bash'
-alias nc="fd . ~/.config -E 'VSCodium' -E sportify -E Bitwarden  -E BraveSoftware -E discord -E '*.png' -E 'Code*' -E chromium -E 'awesome-back*' --type=file | fzf --color=dark| xargs -r nvim"
+alias ncon="fd . ~/.config -E 'VSCodium' -E sportify -E Bitwarden  -E BraveSoftware -E discord -E '*.png' -E 'Code*' -E chromium -E 'awesome-back*' --type=file | fzf --color=dark| xargs -r nvim"
 alias mv='mv -vi'
 alias icat='kitty +kitten icat'
 alias cp='cp -vi'
@@ -132,17 +132,21 @@ alias sk='kitty +kitten ssh'
 # Tmux
 alias ta='tmux attach'
 alias ts='tmux-sessionizer'
+alias k='kubectl'
 
 # Export
 path+=('/home/rifqoi/.local/bin')
 path+=('/home/rifqoi/.cargo/bin')
 path+=('/home/rifqoi/.config/lua-language-server/bin/')
 path+=('/home/rifqoi/go/bin/')
+path+=($HOME'/.local/share/coursier/bin')
 path+=($HOME'/.spicetify')
 
 export XDG_CONFIG_HOME=$HOME/.config
 export QT_QPA_PLATFORMTHEME='gnome'
 export PRETTIERD_DEFAULT_CONFIG=~/.config/nvim/.prettierrc.json
+export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_4:$LD_LIBRARY_PATH
+export PATH=$LD_LIBRARY_PATH:$PATH
 
 # COmpletions to hidden files
 zstyle ':completion:*' file-patterns '%p(D):globbed-files *(D-/):directories' '*(D):all-files'
@@ -161,9 +165,9 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+#
 
 alias luamake=/home/rifqoi/.config/lua-language-server/3rd/luamake/luamake
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 bindkey -r "^R"
 bindkey "^R" fzf-history-widget
@@ -174,3 +178,8 @@ function my_init() {
 }
 zvm_after_init_commands+=(my_init)
 eval "$(starship init zsh)"
+export PATH=$PATH:/usr/local/go/bin
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+[[ -s "/home/rifqoi/.gvm/scripts/gvm" ]] && source "/home/rifqoi/.gvm/scripts/gvm"
