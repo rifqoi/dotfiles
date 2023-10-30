@@ -1,0 +1,4 @@
+cmd + ctrl - return : open -n /Applications/WezTerm.app/ 
+alt - w : open -n /Applications/Google\ Chrome.app
+cmd + ctrl - v : vpn.sh toggle ""
+cmd + ctrl - p : clipboard-creds.sh
