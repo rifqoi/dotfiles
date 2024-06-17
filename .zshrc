@@ -76,7 +76,6 @@ plugins=(
     zsh-vi-mode 
     docker 
     docker-compose 
-    conda-zsh-completion 
     zsh-syntax-highlighting
 )
 
@@ -135,10 +134,10 @@ alias ts='tmux-sessionizer'
 alias k='kubectl'
 
 # Export
-path+=('/home/rifqoi/.local/bin')
+path+=($HOME'/.local/bin')
 path+=('/home/rifqoi/.cargo/bin')
 path+=('/home/rifqoi/.config/lua-language-server/bin/')
-path+=('/home/rifqoi/go/bin/')
+path+=($HOME'/go/bin/')
 path+=($HOME'/.local/share/coursier/bin')
 path+=($HOME'/.spicetify')
 
@@ -153,14 +152,14 @@ zstyle ':completion:*' file-patterns '%p(D):globbed-files *(D-/):directories' '*
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
-        . "/usr/etc/profile.d/conda.sh"
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
     else
-        export PATH="/usr/bin:$PATH"
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -183,3 +182,18 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 [[ -s "/home/rifqoi/.gvm/scripts/gvm" ]] && source "/home/rifqoi/.gvm/scripts/gvm"
+export KUBECONFIG="${HOME}/.kube/config:${HOME}/.kube/config-sit:${HOME}/.kube/rifqoi-cluster-config:${HOME}/.kube/oc-cluster"
+source <(kubectl completion zsh)
+complete -F __start_kubectl k
+alias meld="open -W -a Meld $@"
+
+
+ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+ fi
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
