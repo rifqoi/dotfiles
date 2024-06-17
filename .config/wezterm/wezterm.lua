@@ -23,17 +23,23 @@ local colors_f = {
 	colors.cyan,
 	colors.white,
 }
-wezterm.on("format-tab-title",
-           function(tab, tabs, panes, config, hover, max_width)
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	return " " .. tab.active_pane.title .. " "
 end)
 
+local mux = wezterm.mux
+wezterm.on("gui-startup", function(cmd)
+	local tab, pane, window = mux.spawn_window(cmd or {})
+	window:gui_window():set_position(125, 100)
+end)
+
 return {
-	font = wezterm.font("JetBrainsMono Nerd Font"),
-	font_size = 12,
+	font = wezterm.font("FiraCode Nerd Font Mono"),
+	font_size = 15,
 	window_close_confirmation = "NeverPrompt",
-	window_padding = {left = 16, right = 16, top = 16, bottom = 16},
-	window_decorations = "RESIZE",
+	window_padding = { left = 2, right = 0, top = 10, bottom = 1 },
+	-- window_padding = { left = 16, right = 16, top = 16, bottom = 10 },
+	-- window_decorations = "RESIZE",
 	audible_bell = "Disabled",
 	tab_max_width = 25,
 	-- colors = {
@@ -61,12 +67,18 @@ return {
 	-- 		},
 	-- 	},
 	-- },
-	color_scheme = "Gruvbox Dark",
+	color_scheme = "Catppuccin Mocha",
+	-- color_scheme = "Gruvbox dark, hard (base16)",
 	force_reverse_video_cursor = true,
 
-	initial_rows = 30,
-	initial_cols = 120,
+	line_height = 1.4,
+	initial_rows = 40,
+	initial_cols = 150,
 	show_tab_index_in_tab_bar = false,
 	hide_tab_bar_if_only_one_tab = true,
 	exit_behavior = "Close",
+	default_cursor_style = "BlinkingBlock",
+	cursor_blink_rate = 400,
+	cursor_blink_ease_in = "Constant",
+	cursor_blink_ease_out = "Constant",
 }
